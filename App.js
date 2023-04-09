@@ -44,7 +44,7 @@ function App() {
           ></ExpenseItem>
         );
       })}
-    </div>
+    </div> 
   );
 }
 
