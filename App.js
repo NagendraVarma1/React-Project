@@ -1,6 +1,8 @@
-import ExpenseItem from "./components/ExpenseItem";
+import ExpenseItem from "./components/Expenses/ExpenseItem";
+import NewExpense from "./components/NewExpenses/NewExpense";
+import React,{useState} from "react";
 
-function App() {
+const App = () => {
   const expenses = [
     {
       id: "e1",
@@ -31,12 +33,21 @@ function App() {
       location: "Store",
     },
   ];
+  const [allExpenses, setAllExpenses] = useState(expenses)
+  const addExpenseHandler = (expense) => {
+    setAllExpenses((prevExpenses) => {
+      return [...prevExpenses, expense]
+    })
+   
+  }
+
   return (
     <div>
-      <h2>Let's get started! Lets go</h2>
-      {expenses.map(data => {
+      <NewExpense onAddExpense = {addExpenseHandler}/>
+      {allExpenses.map(data => {
         return (
           <ExpenseItem
+            
             title={data.title}
             amount={data.amount}
             date={data.date}
@@ -49,3 +60,4 @@ function App() {
 }
 
 export default App;
+
