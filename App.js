@@ -3,43 +3,44 @@ import NewExpense from "./components/NewExpenses/NewExpense";
 import React,{useState} from "react";
 import ExpensesFilter from "./components/Expenses/ExpensesFilter";
 
+const dummyExpenses = [
+  {
+    id: "e1",
+    title: "Toilet Paper",
+    amount: 94.12,
+    date: new Date(2020, 7, 14),
+    location: "Store",
+  },
+  {
+    id: "e2",
+    title: "New TV",
+    amount: 799.49,
+    date: new Date(2021, 2, 12),
+    location: "Store",
+  },
+  {
+    id: "e3",
+    title: "Car Insurance",
+    amount: 294.67,
+    date: new Date(2021, 2, 28),
+    location: "Car ShowRoom",
+  },
+  {
+    id: "e4",
+    title: "New Desk",
+    amount: 450,
+    date: new Date(2021, 5, 12),
+    location: "Store",
+  },
+];
 const App = () => {
-  const expenses = [
-    {
-      id: "e1",
-      title: "Toilet Paper",
-      amount: 94.12,
-      date: new Date(2020, 7, 14),
-      location: "Store",
-    },
-    {
-      id: "e2",
-      title: "New TV",
-      amount: 799.49,
-      date: new Date(2021, 2, 12),
-      location: "Store",
-    },
-    {
-      id: "e3",
-      title: "Car Insurance",
-      amount: 294.67,
-      date: new Date(2021, 2, 28),
-      location: "Car ShowRoom",
-    },
-    {
-      id: "e4",
-      title: "New Desk",
-      amount: 450,
-      date: new Date(2021, 5, 12),
-      location: "Store",
-    },
-  ];
+  
   const [filteredYear, setFilteredYear] = useState('2020')
-  const [allExpenses, setAllExpenses] = useState(expenses)
+  const [allExpenses, setAllExpenses] = useState(dummyExpenses)
   
   const addExpenseHandler = (expense) => {
     setAllExpenses((prevExpenses) => {
-      return [...prevExpenses, expense]
+      return [expense,...prevExpenses]
     })
   }
   const filterChangeHandler = (selectedYear) => {
@@ -53,7 +54,7 @@ const App = () => {
       {allExpenses.map(data => {
         return (
           <ExpenseItem
-            
+            key = {data.id}
             title={data.title}
             amount={data.amount}
             date={data.date}
