@@ -1,6 +1,7 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpenses/NewExpense";
 import React,{useState} from "react";
+import ExpensesFilter from "./components/Expenses/ExpensesFilter";
 
 const App = () => {
   const expenses = [
@@ -33,17 +34,22 @@ const App = () => {
       location: "Store",
     },
   ];
+  const [filteredYear, setFilteredYear] = useState('2020')
   const [allExpenses, setAllExpenses] = useState(expenses)
+  
   const addExpenseHandler = (expense) => {
     setAllExpenses((prevExpenses) => {
       return [...prevExpenses, expense]
     })
-   
+  }
+  const filterChangeHandler = (selectedYear) => {
+    setFilteredYear(selectedYear)
   }
 
   return (
     <div>
       <NewExpense onAddExpense = {addExpenseHandler}/>
+      <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
       {allExpenses.map(data => {
         return (
           <ExpenseItem
