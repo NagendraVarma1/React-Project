@@ -1,8 +1,8 @@
-import ExpenseItem from "./components/Expenses/ExpenseItem";
+//import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpenses/NewExpense";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import ExpensesFilter from "./components/Expenses/ExpensesFilter";
-
+import ExpenseList from "./components/Expenses/ExpenseList";
 const dummyExpenses = [
   {
     id: "e1",
@@ -34,41 +34,32 @@ const dummyExpenses = [
   },
 ];
 const App = () => {
-  
-  const [filteredYear, setFilteredYear] = useState('2020')
-  const [allExpenses, setAllExpenses] = useState(dummyExpenses)
-  
+  const [filteredYear, setFilteredYear] = useState("2020");
+  const [allExpenses, setAllExpenses] = useState(dummyExpenses);
+
   const addExpenseHandler = (expense) => {
     setAllExpenses((prevExpenses) => {
-      return [expense,...prevExpenses]
-    })
-  }
+      return [expense, ...prevExpenses];
+    });
+  };
   const filterChangeHandler = (selectedYear) => {
-    setFilteredYear(selectedYear)
-  }
+    setFilteredYear(selectedYear);
+  };
 
-  const filteredExpenses = allExpenses.filter(expense => {
+  const filteredExpenses = allExpenses.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
-  })
-
+  });
+  
   return (
     <div>
-      <NewExpense onAddExpense = {addExpenseHandler}/>
-      <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-      {filteredExpenses.map(data => {
-        return (
-          <ExpenseItem
-            key = {data.id}
-            title={data.title}
-            amount={data.amount}
-            date={data.date}
-            location={data.location}
-          ></ExpenseItem>
-        );
-      })}
-    </div> 
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <ExpensesFilter
+        selected={filteredYear}
+        onChangeFilter={filterChangeHandler}
+      />
+      <ExpenseList items={filteredExpenses} />
+    </div>
   );
-}
+};
 
 export default App;
-
