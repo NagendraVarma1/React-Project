@@ -5,7 +5,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-
+  const [enteredLocation, setEnteredLocation] = useState("");
 
   //INSTEAD OF WRITING USESTATE FOR 3 TIMES WE CAN ALSO WRITE IT AS ----->
   // const [userInput, setUserInput] = useState({
@@ -35,22 +35,28 @@ const ExpenseForm = (props) => {
     // console.log(enteredDate)
     // setUserInput({...userInput, enteredDate: event.target.value})
   };
+  const locationChangeHandler = (event) => {
+    setEnteredLocation(event.target.value);
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
     let title = enteredTitle;
     let amount = enteredAmount;
     let date = new Date(enteredDate);
+    let location = enteredLocation;
 
     let expenseData = {
       title,
       amount,
       date,
+      location
     };
     props.onSaveExpenseData(expenseData);
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
+    setEnteredLocation('');
   };
   return (
     <form onSubmit={submitHandler}>
@@ -79,6 +85,14 @@ const ExpenseForm = (props) => {
             max="2023-12-31"
             value={enteredDate}
             onChange={dateChangeHandler}
+          />
+        </div>
+        <div className="new-expense__control">
+          <label>Location:</label>
+          <input
+            type="text"
+            value={enteredLocation}
+            onChange={locationChangeHandler}
           />
         </div>
       </div>
